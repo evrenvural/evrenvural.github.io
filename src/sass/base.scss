@@ -1,0 +1,17 @@
+// DESKTOP
+@import './desktop/global';
+@import './desktop/navbar.scss';
+@import './desktop/my-page.scss';
+
+// TABLET
+@media (max-width: 1408px){
+    @import './tablet/global';
+    @import "./tablet/my-page.scss";
+}
+
+// MOBILE
+@media (max-width: 1000px){
+    @import './mobile/global';
+    @import "./mobile/my-page.scss";
+    @import './mobile/navbar.scss';
+}

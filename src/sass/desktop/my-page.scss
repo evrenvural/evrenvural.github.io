@@ -1,0 +1,24 @@
+.my-page{
+    .attributes{
+        margin-top: 30px;
+        .container{
+            display: flex;
+            justify-content: space-between;
+
+            
+            .title{
+                font-size: 25px;
+                font-weight: 500;
+                 margin-bottom: 15px;
+            }
+            .list{
+                margin-top: 20px;
+                .text{
+                    margin-left: 10px;
+                }
+            }
+
+        }
+    }
+    
+}

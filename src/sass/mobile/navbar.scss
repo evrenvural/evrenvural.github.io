@@ -1,0 +1,18 @@
+.navbar{
+    .container{
+        flex-direction: column;
+
+        .logo{
+            .sub-title{
+                margin-top: 20px;
+            }
+        }
+
+        .links{
+            margin-top: 20px;
+            .link{
+                font-size: 30px;
+            }
+        }
+    }
+}
