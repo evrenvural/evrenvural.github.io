@@ -1,7 +1,7 @@
 .my-page{
-    .attributes{
-        margin-left: auto;
-        margin-right: auto;
+
+    .skills-and-school{
+        margin-top: 30px;
         .container{
             flex-direction: column;
 
@@ -14,5 +14,17 @@
                 }
             }
         }
+    }
+    
+    .table{
+        .container{
+            flex-direction: row;
+        }
+    }
+    .experiences{
+        margin-top: 0;
+    }
+    .projects{
+        margin-top: 30px;
     }
 }
