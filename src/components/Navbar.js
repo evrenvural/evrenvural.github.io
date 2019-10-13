@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import GithubSvg from '../svg/github.svg';
-import LinkedinSvg from '../svg/linkedin.svg';
-import SoundcloudSvg from '../svg/soundcloud.svg';
+import PropTypes from "prop-types";
 
 export default class Navbar extends Component {
     render() {
@@ -10,24 +8,31 @@ export default class Navbar extends Component {
                 <div className="container">
                     <div className="logo">
                         <a href="/">
-                        <h1 className="title">EVREN VURAL</h1>
-                        <h2 className="sub-title">SOFTWARE ENGINEER</h2>
+                        <h1 className="title">{this.props.name}</h1>
+                        <h2 className="sub-title">{this.props.job}</h2>
                         </a>
                         
                     </div>
                     <div className="links">
-                        <a href="https://github.com/evrenvural" target="_blank">
-                            <img className="link" src={GithubSvg} alt="Github"/>
-                        </a>
-                        <a href="https://www.linkedin.com/in/evrenvural/" target="_blank">
-                            <img className="link" src={LinkedinSvg} alt="Linkedin"/>
-                        </a>
-                        <a href="https://soundcloud.com/evren-vural" target="_blank">
-                            <img className="link" src={SoundcloudSvg} alt="SoundCloud"/>
-                        </a>
+                        {this.props.links.map(item => (
+                            <a href={item.url} target="_blank">
+                                <img className="link" src={item.icon} alt={item.name}/>
+                            </a>    
+                        ))}
                     </div>
                 </div>
             </div>
         )
     }
 }
+Navbar.propTypes = {
+    name: PropTypes.string,
+    job: PropTypes.string,
+    links: PropTypes.array 
+};
+
+Navbar.defaultProps = {
+    name: "UNKNOWN PERSON",
+    job: "UNKNOWN JOB",
+    links: []
+};
