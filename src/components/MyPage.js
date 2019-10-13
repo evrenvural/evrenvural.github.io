@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import CheckSvg from '../svg/check.svg';
+import { Github } from '../lib/Github.js';
+import { Medium } from '../lib/Medium.js';
 
 import githubSvg from '../svg/github.svg';
 import mediumSvg from '../svg/medium.svg';
@@ -8,11 +10,11 @@ import linkedinSvg from '../svg/linkedin.svg';
 import soundcloudSvg from '../svg/soundcloud.svg';
 
 export default class MyPage extends Component {
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
-            person : {
+            person: {
                 name: "EVREN VURAL",
                 job: "SOFTWARE ENGINEER",
                 links: [
@@ -54,14 +56,35 @@ export default class MyPage extends Component {
                 articles: []
             }
         }
+
+        this.github = new Github("evrenvural");
+        this.medium = new Medium();
     }
+
+    componentDidMount() {
+        this.github.getRepo()
+            .then(item => {
+                this.setState(prevState => ({
+                    person: {
+                        ...prevState.person,
+                        projects : item
+                    }
+                }))
+            })
+
+        this.medium.getArticles()
+            .then(item => {
+                console.log("MEDIUM -> ", item);
+            })
+    }
+
     render() {
         return (
             <div className="my-page">
-                <Navbar 
-                    name = {this.state.person.name}
-                    job = {this.state.person.job}
-                    links = {this.state.person.links}
+                <Navbar
+                    name={this.state.person.name}
+                    job={this.state.person.job}
+                    links={this.state.person.links}
                 />
 
                 <div className="skills-and-school">
@@ -70,7 +93,7 @@ export default class MyPage extends Component {
                         <div className="attribute">
                             <div className="lists">
                                 <h2 className="title">Skills</h2>
-                                {this.state.person.skills.map(item=>(
+                                {this.state.person.skills.map(item => (
                                     <div className="list">
                                         <img className="check" src={CheckSvg} alt="Check Icon"></img>
                                         <span className="text">{item}</span>
@@ -83,7 +106,7 @@ export default class MyPage extends Component {
                             <div className="lists">
                                 <h2 className="title">Education</h2>
 
-                                {this.state.person.educations.map(item=>(
+                                {this.state.person.educations.map(item => (
                                     <div className="list">
                                         <img className="check" src={CheckSvg} alt="Check Icon"></img>
                                         <span className="text">{item}</span>
@@ -96,7 +119,7 @@ export default class MyPage extends Component {
                             <div className="lists">
                                 <h2 className="title">Interests</h2>
 
-                                {this.state.person.interests.map(item=>(
+                                {this.state.person.interests.map(item => (
                                     <div className="list">
                                         <img className="check" src={CheckSvg} alt="Check Icon"></img>
                                         <span className="text">{item}</span>
@@ -104,7 +127,6 @@ export default class MyPage extends Component {
                                 ))}
                             </div>
                         </div>
-
                     </div>
 
                     <div className="experiences">
@@ -113,7 +135,7 @@ export default class MyPage extends Component {
                                 <div className="lists">
                                     <h2 className="title">Experiences</h2>
 
-                                    {this.state.person.experiences.map(item=>(
+                                    {this.state.person.experiences.map(item => (
                                         <div className="list">
                                             <img className="check" src={CheckSvg} alt="Check Icon"></img>
                                             <span className="text">{item}</span>
@@ -130,41 +152,21 @@ export default class MyPage extends Component {
                                 <div className="table-head">
                                     <div className="container">
                                         <img className="svg" src={githubSvg} alt="Github" />
-                                        <h2 className="title">Open Source Projects</h2>
+                                        <h2 className="title">{`Open Source Projects (${this.state.person.projects.length})`}</h2>
                                     </div>
                                 </div>
                                 <div className="table-body">
                                     <div className="datas">
-                                        <a href="https://www.google.com" target="_blank">
-                                            <div className="data">
-                                                <h2 className="title">stopwdsatch-football</h2>
-                                                <div className="text">Kronometre Futbol Oyunu is a nostalgic football game which can play on stopwatch</div>
-                                            </div>
-                                        </a>
-                                        <a href="https://www.google.com" target="_blank">
-                                            <div className="data">
-                                                <h2 className="title">stopwdsatch-football</h2>
-                                                <div className="text">Kronometre Futbol Oyunu is a nostalgic football game which can play on stopwatch</div>
-                                            </div>
-                                        </a>
-                                        <a href="https://www.google.com" target="_blank">
-                                            <div className="data">
-                                                <h2 className="title">stopwdsatch-football</h2>
-                                                <div className="text">Kronometre Futbol Oyunu is a nostalgic football game which can play on stopwatch</div>
-                                            </div>
-                                        </a>
-                                        <a href="https://www.google.com" target="_blank">
-                                            <div className="data">
-                                                <h2 className="title">stopwdsatch-football</h2>
-                                                <div className="text">Kronometre Futbol Oyunu is a nostalgic football game which can play on stopwatch</div>
-                                            </div>
-                                        </a>
-                                        <a href="https://www.google.com" target="_blank">
-                                            <div className="data">
-                                                <h2 className="title">stopwdsatch-football</h2>
-                                                <div className="text">Kronometre Futbol Oyunu is a nostalgic football game which can play on stopwatch</div>
-                                            </div>
-                                        </a>
+                                        {
+                                            this.state.person.projects.map(item => (
+                                                <a href={item.svn_url} target="_blank">
+                                                    <div className="data">
+                                                        <h2 className="title">{item.name}</h2>
+                                                        <div className="text">{item.description}</div>
+                                                    </div>
+                                                </a>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                             </div>
